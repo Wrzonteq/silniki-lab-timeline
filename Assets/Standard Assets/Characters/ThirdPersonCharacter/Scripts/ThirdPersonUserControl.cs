@@ -53,9 +53,10 @@ namespace UnityStandardAssets.Characters.ThirdPerson
             // calculate move direction to pass to character
             if (m_Cam != null)
             {
+                var isCameraFacingDown = Math.Abs(m_Cam.eulerAngles.x - 90) < 1;
                 // calculate camera relative direction to move:
                 m_CamForward = Vector3.Scale(m_Cam.forward, new Vector3(1, 0, 1)).normalized;
-                m_Move = v*m_CamForward + h*m_Cam.right;
+                m_Move = v*(isCameraFacingDown ? m_Cam.up : m_CamForward) + h*m_Cam.right;
             }
             else
             {
